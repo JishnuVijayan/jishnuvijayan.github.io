@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.particle-card {
+  position: relative;
+  background-color: #060010;
+  border: 1px solid #392e4e;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.particle-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+.particle-glow {
+  position: absolute;
+  top: var(--glow-y, 50%);
+  left: var(--glow-x, 50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(132, 0, 255, 0.2) 0%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+.particle-card:hover .particle-glow {
+  opacity: 1;
+}
+
+/* Profile Card CSS */
+:root {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --card-opacity: 0;
+  --rotate-x: 0deg;
+  --rotate-y: 0deg;
+  --background-x: 50%;
+  --background-y: 50%;
+  --card-radius: 30px;
+}
+.pc-card-wrapper {
+  perspective: 1000px;
+  position: relative;
+}
+.pc-card {
+  aspect-ratio: 0.718;
+  border-radius: var(--card-radius);
+  position: relative;
+  transition: transform 1s ease;
+  transform: rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
+  background-image: radial-gradient(
+      farthest-side circle at var(--pointer-x) var(--pointer-y),
+      hsla(266, 100%, 90%, var(--card-opacity)) 4%,
+      hsla(266, 50%, 80%, calc(var(--card-opacity) * 0.75)) 10%,
+      hsla(266, 25%, 70%, calc(var(--card-opacity) * 0.5)) 50%,
+      hsla(266, 0%, 60%, 0) 100%
+    ),
+    radial-gradient(35% 52% at 55% 20%, #00ffaac4 0%, #073aff00 100%),
+    radial-gradient(100% 100% at 50% 50%, #00c1ffff 1%, #073aff00 76%),
+    conic-gradient(
+      from 124deg at 50% 50%,
+      #c137ffff 0%,
+      #07c6ffff 40%,
+      #07c6ffff 60%,
+      #c137ffff 100%
+    );
+  overflow: hidden;
+}
+.pc-card:hover {
+  --card-opacity: 1;
+}
+.pc-inside {
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(145deg, #60496e8c 0%, #71c4ff44 100%);
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.pc-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  mix-blend-mode: color-dodge;
+}
+.pc-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: radial-gradient(
+    farthest-corner circle at var(--pointer-x) var(--pointer-y),
+    hsl(248, 25%, 80%) 12%,
+    hsla(207, 40%, 30%, 0.8) 90%
+  );
+  mix-blend-mode: overlay;
+}
+.pc-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pc-avatar-content {
+  z-index: 1;
+}
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pc-details {
+  text-align: center;
+  color: white;
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+.pc-details h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+.pc-details p {
+  margin: 0.25rem 0;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+@keyframes light-rays {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-light-rays {
+  animation: light-rays 200s linear infinite;
+}
