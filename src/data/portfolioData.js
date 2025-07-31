@@ -17,17 +17,18 @@ const portfolioData = {
   },
   skills: {
     technical: [
-      "Machine Learning",
-      "React",
-      "Angular",
-      "JavaScript",
-      "C",
-      "Python",
-      "CSS",
-      "HTML",
-      "Pandas",
-      "NumPy",
-      "Matplotlib",
+      { name: "Machine Learning", img: "/ml.png" },
+      { name: "React", img: "/react.svg" },
+      { name: "Angular", img: "/Angular.png" },
+      { name: "JavaScript", img: "/js.png" },
+      { name: "C", img: "/c.png" },
+      { name: "Python", img: "/python.png" },
+      { name: "CSS", img: "/css.png" },
+      { name: "HTML", img: "/html.png" },
+      { name: "Pandas", img: "/pandas.svg" },
+      { name: "NumPy", img: "/numpy.png" },
+      { name: "Matplotlib", img: "/matplotlib.png" },
+      { name: "Seaborn", img: "/seaborn.svg" },
     ],
     soft: [
       "Teamwork",
@@ -40,31 +41,25 @@ const portfolioData = {
   },
   experience: [
     {
-      title: "EMG Signal Analysis and Control of 3D-Printed Prosthesis",
-      company: "Aster Medcity Kochi",
-      duration: "Feb 2024 - May 2025",
-      technologies: [
-        "Machine Learning",
-        "Supervised Learning Algorithms",
-        "Python",
-      ],
-      description: [
-        "Conducted a research internship project focusing on EMG signal analysis and hand muscle activation detection.",
-        "Collected EMG signals using an EMG muscle sensor and Arduino, followed by signal preprocessing.",
-        "Developed and tested machine learning and deep learning models to accurately predict muscle activation and relaxation states based on processed EMG signals.",
-        "Model predictions were used to control a 3D-printed prosthetic arm in real time.",
-      ],
+      year: "2025 (3 months)",
+      title: "Full-Stack Web developer Intern",
+      subtitle: "ULTS, UL Cyberpark, Kozhikode",
+      description:
+        "Worked in various projects including React, NestJS, and FastAPI. Contributed to two different projects, which helped me to learn new technologies.",
     },
     {
-      title: "Tailoring Firm Management, Restaurant Menu",
-      company: "Karippal Innovations, Thrissur",
-      duration: "Dec 2024 - Mar 2025",
-      technologies: ["Angular", "Ionic", "TypeScript", "HTML", "CSS"],
-      description: [
-        "Worked on multiple projects at Karippal Innovations, Thrissur.",
-        "Digital solution for tailoring firms, designed to streamline order management, track details, and enhance operational efficiency with advanced features.",
-        "Restaurant menu digitization app with advanced features and a dashboard for tracking essential details.",
-      ],
+      year: "2024-2025",
+      title: "EMG Signal Analysis and Control of 3D-Printed Prosthesis",
+      subtitle: "Aster Medcity Kochi",
+      description:
+        "Conducted a research internship focusing on EMG signal analysis, developing ML models to predict muscle activation, and using these predictions to control a 3D-printed prosthetic arm in real time.",
+    },
+    {
+      year: "2024-2025",
+      title: "Full-Stack Web developer Intern",
+      subtitle: "Karippal Innovations, Thrissur",
+      description:
+        "Worked on multiple projects, including a digital solution for tailoring firms to streamline order management and a restaurant menu digitization app, using Angular, Ionic, and TypeScript.",
     },
   ],
   projects: [

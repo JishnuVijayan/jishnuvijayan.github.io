@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { useInView } from "framer-motion";
 import DecryptedText from "./DecryptedText";
-import ShinyText from "./ShinyText";
 import portfolioData from "../data/portfolioData";
+import { motion } from "framer-motion";
+import colors from "../data/colors";
 
-export default function Header() {
+const Header = () => {
   const [isNameRevealed, setIsNameRevealed] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.1 });
@@ -32,7 +33,7 @@ export default function Header() {
           encryptedClassName="text-cyan-400"
           onAnimationComplete={() => {
             if (isInView) {
-              setTimeout(() => setIsNameRevealed(true), 0);
+              setIsNameRevealed(true);
             }
           }}
         />
@@ -52,16 +53,23 @@ export default function Header() {
               parentClassName="text-lg md:text-xl"
               className="text-white"
               encryptedClassName="text-cyan-400"
-              style={{ color: "hsl(195, 100%, 65%)" }}
+              style={{ color: colors.accentMuted }}
             />
             <div className="mt-8 flex justify-center gap-4">
-              <ShinyText href={`mailto:${portfolioData.contact.email}`}>
-                Contact Me
-              </ShinyText>
+              <button
+                type="button"
+                className="text-lg font-medium text-gray-300 transition-colors hover:text-white relative group bg-transparent border-none outline-none"
+                style={{ cursor: "pointer" }}
+              >
+                <span className="relative z-10">Contact Me</span>
+                {/* Optional: Add the shiny effect here if you want */}
+              </button>
             </div>
           </motion.div>
         )}
       </div>
     </header>
   );
-}
+};
+
+export default Header;

@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { animate } from "framer-motion";
 
-export default function CountUp({ to, className, decimals = 0 }) {
+const CountUp = ({ to, className, decimals = 0 }) => {
   const nodeRef = useRef();
   useEffect(() => {
     const node = nodeRef.current;
@@ -14,4 +14,6 @@ export default function CountUp({ to, className, decimals = 0 }) {
     return () => controls.stop();
   }, [to, decimals]);
   return <span ref={nodeRef} className={className} />;
-}
+};
+
+export default CountUp;

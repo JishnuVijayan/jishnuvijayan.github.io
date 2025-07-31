@@ -1,49 +1,40 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { useInView, motion } from "framer-motion";
 import DecryptedText from "./DecryptedText";
 
-export default function AnimatedSection({ id, title, children }) {
-  const [isHeadingRevealed, setIsHeadingRevealed] = useState(false);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { amount: 0.1 });
-
-  useEffect(() => {
-    if (!isInView) {
-      setIsHeadingRevealed(false);
-    }
-  }, [isInView]);
+const AnimatedSection = ({ id, title, children }) => {
+  const headingRef = useRef(null);
+  const isHeadingInView = useInView(headingRef, { amount: 0.5, once: true });
+  const [headingDone, setHeadingDone] = useState(false);
 
   return (
     <section
-      ref={ref}
       id={id}
       className="max-w-5xl mx-auto px-4 py-32 md:py-48 text-center"
     >
-      <DecryptedText
-        text={title}
-        animateOn="view"
-        sequential
-        revealDirection="center"
-        speed={50}
-        parentClassName="text-[clamp(2.5rem,6vw,4rem)] font-bold"
-        className="text-white"
-        encryptedClassName="text-cyan-400"
-        onAnimationComplete={() => {
-          if (isInView) {
-            setTimeout(() => setIsHeadingRevealed(true), 0);
-          }
-        }}
-      />
-      {isHeadingRevealed && (
-        <motion.div
-          className="mt-8 text-left"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          {children}
-        </motion.div>
-      )}
+      <div ref={headingRef}>
+        <DecryptedText
+          text={title}
+          animateOn={isHeadingInView ? "view" : "none"}
+          sequential
+          revealDirection="center"
+          speed={50}
+          parentClassName="text-[clamp(2.5rem,6vw,4rem)] font-bold"
+          className="text-white"
+          encryptedClassName="text-cyan-400"
+          onAnimationComplete={() => setHeadingDone(true)}
+        />
+      </div>
+      <motion.div
+        className="mt-8 text-left"
+        initial={{ opacity: 0, y: 20 }}
+        animate={headingDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
+        {headingDone && children}
+      </motion.div>
     </section>
   );
-}
+};
+
+export default AnimatedSection;

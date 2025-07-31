@@ -1,7 +1,6 @@
-import React from "react";
 import { motion } from "framer-motion";
 
-export default function ShinyText({ children, href }) {
+const ShinyText = ({ children, href }) => {
   return (
     <a
       href={href}
@@ -16,4 +15,6 @@ export default function ShinyText({ children, href }) {
       />
     </a>
   );
-}
+};
+
+export default ShinyText;

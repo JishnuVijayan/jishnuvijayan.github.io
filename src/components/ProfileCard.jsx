@@ -1,13 +1,13 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
-export default function ProfileCard({
+const ProfileCard = ({
   avatarUrl,
   name,
   title,
   email,
   phone,
   onContactClick,
-}) {
+}) => {
   const wrapRef = useRef(null);
   const cardRef = useRef(null);
 
@@ -58,4 +58,6 @@ export default function ProfileCard({
       </section>
     </div>
   );
-}
+};
+
+export default ProfileCard;

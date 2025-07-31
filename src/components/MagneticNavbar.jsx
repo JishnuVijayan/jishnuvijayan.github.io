@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { motion, useScroll } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import MagneticElement from "./MagneticElement";
+import JVLogo from "./JVLogo";
 import ShinyText from "./ShinyText";
+import { Menu, X } from "lucide-react";
 import navLinks from "../data/navLinks";
+import colors from "../data/colors"; // If you have a colors file, otherwise define colors here
 
-const colors = {
-  border: "hsla(0, 0%, 100%, 0.1)",
-};
-
-export default function MagneticNavbar() {
+const MagneticNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    return scrollY.onChange((latest) => setIsScrolled(latest > 50));
-  }, [scrollY]);
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <motion.nav
@@ -34,9 +33,7 @@ export default function MagneticNavbar() {
     >
       <div className="max-w-5xl mx-auto px-4 flex justify-between items-center">
         <MagneticElement>
-          <a href="#" className="font-bold text-2xl">
-            JV
-          </a>
+          <JVLogo />
         </MagneticElement>
         <div className="hidden md:flex items-center gap-4">
           {navLinks.map((link) => (
@@ -73,4 +70,6 @@ export default function MagneticNavbar() {
       )}
     </motion.nav>
   );
-}
+};
+
+export default MagneticNavbar;
