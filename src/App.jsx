@@ -21,8 +21,26 @@ import {
   MessageCircle,
 } from "lucide-react";
 
+// Utility function to detect mobile devices
+function isMobileDevice() {
+  return (
+    typeof window !== "undefined" &&
+    /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
+      navigator.userAgent
+    )
+  );
+}
+
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+    const handleResize = () => setIsMobile(isMobileDevice());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
@@ -43,9 +61,11 @@ export default function App() {
   return (
     <div
       style={{ backgroundColor: colors.background, color: colors.text }}
-      className="font-sans leading-relaxed selection:bg-sky-500/30 cursor-none"
+      className={`font-sans leading-relaxed selection:bg-sky-500/30 ${
+        isMobile ? "" : "cursor-none"
+      }`}
     >
-      <ParticleOrbitCursor />
+      {!isMobile && <ParticleOrbitCursor />}
       <LightRays className="custom-rays" />
       <MagneticNavbar navLinks={navLinks} />
       <div className="relative z-10">
