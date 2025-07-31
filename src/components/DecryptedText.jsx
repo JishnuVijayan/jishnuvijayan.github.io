@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-export default function DecryptedText({
+function DecryptedText({
   text,
   speed = 50,
   maxIterations = 10,
   sequential = false,
   revealDirection = "start",
+  useOriginalCharsOnly = false,
   characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+",
   className = "",
   parentClassName = "",
@@ -37,6 +38,7 @@ export default function DecryptedText({
           const offset = Math.floor(revealedSet.size / 2);
           const nextIndex =
             revealedSet.size % 2 === 0 ? middle + offset : middle - offset - 1;
+
           if (
             nextIndex >= 0 &&
             nextIndex < textLength &&
@@ -95,6 +97,10 @@ export default function DecryptedText({
           }
         });
       }, speed);
+    } else {
+      setDisplayText(text);
+      setRevealedIndices(new Set());
+      setIsScrambling(false);
     }
 
     return () => {
@@ -110,15 +116,6 @@ export default function DecryptedText({
     characters,
     onAnimationComplete,
   ]);
-
-  // Reset state when not hovering
-  useEffect(() => {
-    if (!isHovering) {
-      setDisplayText(text);
-      setRevealedIndices(new Set());
-      setIsScrambling(false);
-    }
-  }, [isHovering, text]);
 
   useEffect(() => {
     if (animateOn !== "view") return;
@@ -169,6 +166,7 @@ export default function DecryptedText({
         {displayText.split("").map((char, index) => {
           const isRevealedOrDone =
             revealedIndices.has(index) || !isScrambling || !isHovering;
+
           return (
             <span
               key={index}
@@ -182,3 +180,5 @@ export default function DecryptedText({
     </motion.span>
   );
 }
+
+export default DecryptedText;

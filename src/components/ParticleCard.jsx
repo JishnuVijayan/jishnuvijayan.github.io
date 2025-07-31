@@ -1,6 +1,4 @@
-import React, { useRef, useEffect } from "react";
-
-export default function ParticleCard({ children, ...props }) {
+const ParticleCard = ({ children, ...props }) => {
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -25,4 +23,6 @@ export default function ParticleCard({ children, ...props }) {
       <div className="particle-glow" />
     </div>
   );
-}
+};
+
+export default ParticleCard;

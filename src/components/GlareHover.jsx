@@ -1,7 +1,4 @@
-import React from "react";
-import { motion, useSpring, useTransform } from "framer-motion";
-
-export default function GlareHover({ children, className }) {
+const GlareHover = ({ children, className }) => {
   const mouseX = useSpring(0, { stiffness: 500, damping: 100 });
   const mouseY = useSpring(0, { stiffness: 500, damping: 100 });
 
@@ -48,4 +45,6 @@ export default function GlareHover({ children, className }) {
       />
     </motion.div>
   );
-}
+};
+
+export default GlareHover;
