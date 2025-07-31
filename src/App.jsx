@@ -21,24 +21,19 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-// Utility function to detect mobile devices
-function isMobileDevice() {
-  return (
-    typeof window !== "undefined" &&
-    /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
-      navigator.userAgent
-    )
-  );
-}
-
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
+  // Check screen width instead of user agent
   useEffect(() => {
-    setIsMobile(isMobileDevice());
-    const handleResize = () => setIsMobile(isMobileDevice());
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize(); // run once on mount
     window.addEventListener("resize", handleResize);
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -70,11 +65,13 @@ export default function App() {
       <MagneticNavbar navLinks={navLinks} />
       <div className="relative z-10">
         <Header portfolioData={portfolioData} colors={colors} />
+
         <AnimatedSection id="about" title="About Me">
           <p className="text-lg text-center text-slate-300">
             {portfolioData.introduction}
           </p>
         </AnimatedSection>
+
         <AnimatedSection id="education" title="Education">
           <div className="text-center">
             <h4 className="font-bold text-xl text-white">
@@ -96,9 +93,11 @@ export default function App() {
             </p>
           </div>
         </AnimatedSection>
+
         <AnimatedSection id="experience" title="Experience">
           <ScrollTimeline events={portfolioData.experience} />
         </AnimatedSection>
+
         <AnimatedSection id="projects" title="Projects">
           <div className="space-y-8">
             {portfolioData.projects.map((item) => (
@@ -129,6 +128,7 @@ export default function App() {
             ))}
           </div>
         </AnimatedSection>
+
         <AnimatedSection id="skills" title="Skills">
           <div className="mb-16">
             <h3
@@ -191,6 +191,7 @@ export default function App() {
             </div>
           </div>
         </AnimatedSection>
+
         <section id="contact" className="max-w-5xl mx-auto px-4 py-32 md:py-48">
           <h2 className="text-center text-[clamp(2.5rem,6vw,4rem)] font-bold mb-12">
             Get In Touch
@@ -253,6 +254,7 @@ export default function App() {
             </form>
           </div>
         </section>
+
         <footer
           className="text-center py-8"
           style={{ color: colors.textMuted }}
